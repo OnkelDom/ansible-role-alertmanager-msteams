@@ -1,0 +1,31 @@
+{{ ansible_managed | comment }}
+[Unit]
+Description=Prometheus MSTeams Alerting
+Documentation=https://github.com/prometheus-msteams/prometheus-msteams
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=simple
+User={{ msteams_system_user }}
+Group={{ msteams_system_group }}
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart={{ msteams_binary_install_dir }}/msteams \
+  -config-file {{ msteams_config_dir }}/{{ msteams_config_file }} \
+  -template-file {{ msteams_template_dir }}/{{ msteams_default_template }}.tmpl \
+  -teams-request-uri {{ alertmanager_external_url }} \
+{% if msteams_disable_autoescape_underscores|default('',true) is sameas true %}  -auto-escape-underscores false \{% endif %}
+  -http-addr {{ msteams_web_listen_address }}:{{ msteams_web_listen_port }}
+KillSignal=SIGINT
+SyslogIdentifier=msteams
+Restart=on-failure
+RestartSec=5
+{% if msteams_http_proxy is defined %}
+Environment="HTTP_PROXY={{ msteams_http_proxy }}"
+{% endif %}
+{% if msteams_https_proxy is defined %}
+Environment="HTTPS_PROXY={{ msteams_https_proxy }}"
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

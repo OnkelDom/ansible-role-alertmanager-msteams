@@ -1,0 +1,26 @@
+---
+proxy_env: {}
+msteams_version: 1.1.3
+msteams_config_dir: /etc/msteams
+msteams_template_dir: "{{ msteams_config_dir }}/templates"
+msteams_config_file: config.yml
+msteams_firewalld_state: "disabled"
+msteams_binary_install_dir: "/usr/local/bin"
+msteams_system_user: "{{ msteams_user | default('prometheus') }}"
+msteams_system_group: "{{ msteams_group | default('prometheus') }}"
+msteams_web_listen_port: 2000
+msteams_web_listen_address: "0.0.0.0"
+msteams_default_template: default-message-card
+msteams_http_proxy: ""
+msteams_https_proxy: ""
+msteams_disable_autoescape_underscores: true
+msteams_config_channels: {}
+# - alert1: <webhook>
+msteams_config_custom_channels: {}
+# - request_path: /alert2
+#   template_file: ./default-message-card.tmpl
+#   webhook_url: <webhook>
+#   escape_underscores: true # get the effect of -auto-escape-underscores.
+# Define templates in files folder
+msteams_config_templates:
+  - default-message-card

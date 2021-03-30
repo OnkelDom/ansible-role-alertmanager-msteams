@@ -1,0 +1,11 @@
+{{ ansible_managed | comment }}
+{% if msteams_config_channels | length > 0 %}
+connectors:
+{% for key, value in msteams_config_channels.items() %}
+  - {{ key }}: {{ value | string }}
+{% endfor %}
+{% endif %}
+{% if msteams_config_custom_channels | length > 0 %}
+connectors_with_custom_templates:
+{{ msteams_config_custom_channels | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
