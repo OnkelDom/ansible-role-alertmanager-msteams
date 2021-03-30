@@ -26,7 +26,7 @@ All variables which can be overridden are stored in [defaults/main.yml](defaults
 | Name           | Default Value | Description                        |
 | -------------- | ------------- | -----------------------------------|
 | `proxy_env` |  {} | Set proxy environment variables |
-| `msteams_version` | 1.4.1 | MSTeams download Version |
+| `msteams_version` | 1.1.3 | MSTeams download Version |
 | `msteams_binary_install_dir` | /usr/local/bin | default bin dir |
 | `msteams_config_dir` | /etc/msteams | Config Path |
 | `msteams_template_dir` | "{{ msteams_config_dir }}/templates" | Template store path |
