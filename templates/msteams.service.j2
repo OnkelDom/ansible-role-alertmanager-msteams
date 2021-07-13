@@ -24,7 +24,7 @@ RestartSec=5
 Environment="HTTP_PROXY={{ msteams_http_proxy }}"
 {% endif %}
 {% if msteams_https_proxy is defined %}
-Environment="HTTPS_PROXY={{ msteams_https_proxy }}"
+Environment="HTTPS_PROXY={{ msteams_http_proxy }}"
 {% endif %}
 
 [Install]
